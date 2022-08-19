@@ -1,0 +1,39 @@
+{% extends 'base.html' %} 
+
+{% block title %} {{ title }} :: {{ block.super }} {% endblock %} 
+
+
+{% block content %}
+
+  <a href="{% url  'add_queue' %}" class="btn btn-success m-2">Створити чергу</a>
+
+  {% for item in queues %}
+  <div class="card mb-3 m-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        {% if item.photo %}
+        <img src="{{ item.photo.url }}" class="img-fluid rounded-start m-2" />
+        {% endif %}
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ item.title }} </h5>
+          <p class="card-text">{{ item.description }}</p>
+          <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Подивитись чергу</a>
+            <p class="card-text">
+              {% if item.count > 0 %}
+              <small class="text-muted">Вже зайняли чергу:</small>
+              <span class="badge rounded-pill bg-info text-dark">{{ item.count }}</span>
+              {% else %}
+              <small class="text-muted">Чергу поки не зайняли!</small>
+              {% endif %}
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  <button type="button" class="btn btn-danger">Видалити чергу</button>
+
+{% endblock %}

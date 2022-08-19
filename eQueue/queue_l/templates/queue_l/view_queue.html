@@ -1,0 +1,30 @@
+{% extends 'base.html' %} 
+
+{% block title %} Перегляд черги :: {{ block.super }} {% endblock %} 
+
+{% block content %}
+<div class="card" style="width: 22rem;">
+  {% if item.photo %}
+  <img src="{{ item.photo.url }}" class="card-img-top" />
+  {% endif %}
+
+  <div class="card-body">
+    <h5 class="card-title">{{ item.title }}</h5>
+    <p class="card-text">{{ item.description  }}</p>
+  </div>
+  {% if item.count > 0%}
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Всього в черзі: {{ item.count }}</li>
+    <li class="list-group-item">Ще чекають: 10</li>
+    <li class="list-group-item">Ваш номер: <h1>5</h1></li>
+  </ul>
+  {% else %}
+  <p class="card-text m-3">Поки нікого немає</p>
+  {% endif %}
+
+  <div class="card-body d-flex justify-content-between">
+    <button type="button" class="btn btn-success">Встати в чергу</button>
+    <button type="button" class="btn btn-danger">Вийти з черги</button>
+  </div>
+</div>
+{% endblock %}
