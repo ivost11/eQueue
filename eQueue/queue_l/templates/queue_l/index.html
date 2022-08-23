@@ -34,6 +34,6 @@
   </div>
   {% endfor %}
 
-  <button type="button" class="btn btn-danger">Видалити чергу</button>
+  <a href="{% url  'delete_queue' %}" class="btn btn-danger m-2">Видалити чергу</a>
 
 {% endblock %}

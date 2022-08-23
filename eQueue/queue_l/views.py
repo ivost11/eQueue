@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import QueueL
-from .forms import QueueForm
+from .forms import AddQueueForm, DeleteQueueForm
 
 
 def index(request):
@@ -20,11 +20,23 @@ def get_queue(request, queue_id):
 def add_queue(request):
     if request.method == 'POST':
         print(request)
-        form = QueueForm(request.POST, request.FILES)
+        form = AddQueueForm(request.POST, request.FILES)
         if form.is_valid():
-            # queue = queue.objects.create(**form.cleaned_data)
             queue = form.save()
             return redirect(queue)
     else:
-        form = QueueForm()
+        form = AddQueueForm()
     return render(request, 'queue_l/add_queue.html', {'form': form})
+
+
+def delete_queue(request):
+    if request.method == 'POST':
+        print(request)
+        form = DeleteQueueForm(request.POST)
+        if form.is_valid():
+            QueueL.objects.filter(
+                title=form.cleaned_data['title'], email=form.cleaned_data['email']).delete()
+            return redirect('/')
+    else:
+        form = DeleteQueueForm()
+    return render(request, 'queue_l/delete_queue.html', {'form': form})

@@ -1,0 +1,12 @@
+{% extends 'base.html' %} 
+
+{% block title %} Видалення черги :: {{ block.super }} {% endblock %} 
+
+{% block content %}
+    <form action="{% url 'delete_queue' %}" method="POST">
+      {% csrf_token %} 
+      {{ form.as_p }}
+
+      <button type="submit" class="btn btn-danger">Видалити чергу</button>
+    </form>
+{% endblock %}
